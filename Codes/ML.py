@@ -55,7 +55,7 @@ def MLPnn(X, Y):
 	import numpy as np
 
 	print 'Start to train Neural Network...'
-	clf = MLPClassifier(solver = 'lbfgs', alpha = 1e-5, hidden_layer_sizes = (1000, 1000, 1000), random_state = 1)
+	clf = MLPClassifier(solver = 'lbfgs', alpha = 1e-5, hidden_layer_sizes = (100, 100), random_state = 1)
 	print 'Start to fit data...'
 
 	clf.fit(X, Y)
