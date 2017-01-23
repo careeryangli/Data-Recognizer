@@ -9,7 +9,8 @@ predict = []
 model = []
 predict_result = []
 
-X = Reg_loadCSV('/Users/yangli/Documents/Programming/Python Project/Kaggle/Digit Recognizer/Data/train.csv')
+#X = Rescale_loadCSV('/Users/yangli/Documents/Programming/Python Project/Kaggle/Digit Recognizer/Data/train.csv')
+X = Stand_loadCSV('/Users/yangli/Documents/Programming/Python Project/Kaggle/Digit Recognizer/Data/train.csv')
 
 print np.shape(X)
 train_X, train_Y, cv_X, cv_Y, test_X, test_Y = groupData(X)

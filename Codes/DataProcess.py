@@ -11,11 +11,13 @@ def loadCSV(path):
 		row = [float(i) for i in row]
 		data.append(row)
 
+	print [max(i)-min(i) for i in np.transpose(data[1:]).tolist()]
+ 
 	print 'Training Data is loaded!'
 	return data
 
-def Reg_loadCSV(path):
-	# Load and regularize all data. Convert training data to float format.
+def Rescale_loadCSV(path):
+	# Load and rescale all data using (X-min)/(max-min). Convert training data to float format.
 	import csv
 	import numpy as np
 	f = open(path)
@@ -28,10 +30,53 @@ def Reg_loadCSV(path):
 		row = [float(i) for i in row]
 		data.append(row)
 
-	data = np.transpose(data)
-	temp = [np.divide(np.subtract(i, np.mean(i)), np.std(i)) for i in data[1:]]
-	data = np.transpose(data)
+	data = np.transpose(data).tolist()
 
+	temp = [data[0]]
+
+	for i in data[1:]:
+
+		
+		reg_term = np.subtract(i, np.min(i)).tolist()
+
+		if np.std(i) !=0:
+			reg_term = np.divide(reg_term, (np.max(i)-np.min(i))).tolist()
+		temp.append(reg_term)
+
+
+	data = np.transpose(temp)
+	print 'Training Data is loaded and regularized!'
+	return data
+
+def Stand_loadCSV(path):
+	# Load and rescale all data using (X-mean)/std. Convert training data to float format.
+	import csv
+	import numpy as np
+	f = open(path)
+	csv_f = csv.reader(f)
+	csv_f.next()
+
+	data = []
+	print('Loading Training Data ...')
+	for row in csv_f:
+		row = [float(i) for i in row]
+		data.append(row)
+
+	data = np.transpose(data).tolist()
+
+	temp = [data[0]]
+
+	for i in data[1:]:
+
+		
+		reg_term = np.subtract(i, np.mean(i)).tolist()
+
+		if np.std(i) !=0:
+			reg_term = np.divide(reg_term, np.std(i)).tolist()
+		temp.append(reg_term)
+
+
+	data = np.transpose(temp)
 	print 'Training Data is loaded and regularized!'
 	return data
 
